@@ -1,0 +1,20 @@
+## global definitions
+global:
+  # Required and variables used by other variables
+  ALIAS_FQN: '/Users/syacko/.oh-my-zsh/custom/cloud-aliases.zsh'
+  INSTANCE_NUMBER: '0035'
+  LOCAL_USER_HOME_DIRECTORY: /Users/syacko
+  ROOT_DIRECTORY: '/Users/syacko/workspace/styh-dev/src/albert'
+  SERVER_ENVIRONMENT: 'local'
+  SERVER_INSTANCE_IPV4: local.<app name>.<top level domain>
+  SERVER_NAME_PREFIX: recy
+  SYSTEM_USER: 'recycle'
+  SYSTEM_USER_GROUP: 'sty-holdings'
+  SYSTEM_USERS_HOME_DIRECTORY: /home
+  WORKING_AS: recycle
+
+  #
+  # All other variables
+  TOOL_LIST: docker, certs
+
+

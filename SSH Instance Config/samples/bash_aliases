@@ -1,0 +1,31 @@
+#
+# BASH Shell
+#
+alias home='cd ~'
+alias reset='source ~/.bashrc'
+alias lsl='ls -la --color=auto'
+alias back='cd ..'
+#
+# STYH Commands
+#
+alias styh='cd ~/styh/servers'
+alias styh-bin='cd ~/styh/servers/bin'
+alias styh-scripts='cd ~/styh/servers/scripts'
+#
+alias <app name>='cd /home/<app name>'
+alias <app name>-restart='sudo systemctl restart savup-backend.service'
+alias <app name>-start='sudo systemctl start savup-backend.service'
+alias <app name>-status='sudo systemctl status savup-backend.service'
+alias <app name>-stop='sudo systemctl stop savup-backend.service'
+alias <app name>-journal='sudo journalctl -u savup-backend.service -n 75'
+alias <app name>-logs='cd /home/savup-backend/logs'
+#
+# Admin
+#
+alias mount-points='sudo lsblk'
+alias web='cd /var/www'
+alias clear-journal='sudo journalctl --flush --rotate; sudo journalctl --vacuum-time=1s'
+#
+# NATS Commands
+#
+alias nats-home='cd $NATS_HOME'
