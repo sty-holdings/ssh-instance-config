@@ -10,7 +10,7 @@ global:
   SERVER_NAME_PREFIX: recy
   SYSTEM_USER: 'recycle'
   SYSTEM_USER_GROUP: 'sty-holdings'
-  SYSTEM_USERS_HOME_DIRECTORY: /home
+  SYSTEM_USER_HOME_DIRECTORY: /home
   WORKING_AS: recycle
 
   #

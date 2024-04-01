@@ -61,7 +61,7 @@ function print_exports() {
   echo "SOURCE_VIMRC_FILENAME:\t\t$SOURCE_VIMRC_FILENAME"
   echo "SYSTEM_USER:\t\t\t$SYSTEM_USER"
   echo "SYSTEM_USER_GROUP:\t\t$SYSTEM_USER_GROUP"
-  echo "SYSTEM_USERS_HOME_DIRECTORY:\t$SYSTEM_USERS_HOME_DIRECTORY"
+#  echo "SYSTEM_USERS_HOME_DIRECTORY:\t$SYSTEM_USERS_HOME_DIRECTORY"
   echo "WORKING_AS:\t\t\t$WORKING_AS   *** IMPORTANT - DOUBLE CHECK THIS VALUE ***"
 }
 
@@ -121,7 +121,7 @@ function validate_parameters() {
   fi
   if [ -z "$SERVER_INSTANCE_IPV4" ]; then
     local Failed="true"
-    display_error "The IPV4 address must be provided."
+    display_error "The IPV4 address or DNS entry must be provided."
   fi
   if [ -z "$SOURCE_ALIAS_FILENAME" ]; then
     local Failed="true"
@@ -141,15 +141,19 @@ function validate_parameters() {
   fi
   if [ -z "$SYSTEM_USER" ]; then
     local Failed="true"
-    display_error "The SYSTEM_USER must be provided."
+    display_error "The system user must be provided."
   fi
   if [ -z "$SYSTEM_USER_GROUP" ]; then
     local Failed="true"
-    display_error "The SYSTEM_USER_GROUP must be provided."
+    display_error "The system user group must be provided."
   fi
-  if [ -z "$SYSTEM_USERS_HOME_DIRECTORY" ]; then
+#  if [ -z "$SYSTEM_USERS_HOME_DIRECTORY" ]; then
+#    local Failed="true"
+#    display_error "The system users home directory (FQN) must be provided."
+#  fi
+  if [ -z "$WORKING_AS" ]; then
     local Failed="true"
-    display_error "The SYSTEM_USERS_HOME_DIRECTORY (FQN) must be provided."
+    display_error "The working as users must be provided."
   fi
 
   if [ "$Failed" == "true" ]; then
@@ -236,7 +240,7 @@ function run_script {
 #
   display_info "Remove existing configurations directory, if any."
   rm -rf configurations
-  display_info "Cloning Core DevOps scripts"
+  display_info "Cloning configurations"
   git clone https://github.com/sty-holdings/configurations
   display_spacer
   display_info "Configuration is available."
@@ -262,6 +266,9 @@ function run_script {
   # shellcheck disable=SC2086
   eval $myExports
   rm /tmp/*-exports.sh
+#
+# Validate yaml file parameters
+#
   validate_parameters
   if [ "$DISPLAY_EXPORTS" == "yes" ]; then
     display_info "YAML values exported"
