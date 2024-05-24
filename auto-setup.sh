@@ -26,8 +26,8 @@
 
 set -eo pipefail
 
-sh setup.sh -y configurations/yaml/local-ai2connect-as-root.yaml -k -W
-sh setup.sh -y configurations/yaml/local-ai2connect-as-root.yaml -a -W
-sh setup.sh -y configurations/yaml/local-ai2connect-as-root.yaml -U -W
-sh setup.sh -y configurations/yaml/local-ai2connect-as-root.yaml -S -W
-sh setup.sh -y configurations/yaml/local-ai2connect-as-ai2connect.yaml -c -W
+sh setup.sh -y configurations/yaml/local-as-root.yaml -k -W
+sh setup.sh -y configurations/yaml/local-as-root.yaml -a -W
+sh setup.sh -y configurations/yaml/local-as-root.yaml -U -W
+sh setup.sh -y configurations/yaml/local-as-root.yaml -S -W
+sh setup.sh -y configurations/yaml/local-as-styh.yaml -c -W

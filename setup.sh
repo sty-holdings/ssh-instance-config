@@ -46,6 +46,24 @@ function init_script() {
   #
   display_spacer
   display_info "Script has been initialized."
+  #
+  # Pulling configuration from Github
+  #
+  display_info "Remove existing configurations directory, if any."
+  rm -rf configurations
+  display_info "Cloning configurations"
+  git clone https://github.com/sty-holdings/configurations
+  display_spacer
+  display_info "Configuration is available."
+  #
+  # Pulling utilities from Github
+  #
+  display_info "Remove existing utilities directory, if any."
+  rm -rf utilities
+  display_info "Cloning utilities"
+  git clone https://github.com/sty-holdings/utilities
+  display_spacer
+  display_info "utilities is available."
 }
 
 # shellcheck disable=SC2028
@@ -236,15 +254,6 @@ function run_script {
 #
   validate_arguments
 #
-# Pulling configuration from Github
-#
-  display_info "Remove existing configurations directory, if any."
-  rm -rf configurations
-  display_info "Cloning configurations"
-  git clone https://github.com/sty-holdings/configurations
-  display_spacer
-  display_info "Configuration is available."
-#
 # Display yaml settings
 #
   display_spacer
@@ -316,6 +325,9 @@ function run_script {
     scp $IDENTITY $SOURCE_VIMRC_FILENAME $SYSTEM_USER@$SERVER_INSTANCE_IPV4:.
     # shellcheck disable=SC2086
     scp $IDENTITY configurations/scripts/config-server-user.sh $SYSTEM_USER@$SERVER_INSTANCE_IPV4:.
+    #
+    # Install utilities
+#    ???????????
     # shellcheck disable=SC2086
     ssh $IDENTITY $SYSTEM_USER@$SERVER_INSTANCE_IPV4 "sh config-server-user.sh"
     display_spacer
