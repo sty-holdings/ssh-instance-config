@@ -325,10 +325,6 @@ function run_script {
     scp $IDENTITY configurations/scripts/config-server-user.sh $SYSTEM_USER@$SERVER_INSTANCE_IPV4:.
     #
     display_spacer
-    display_info "Installing STY Holdings Utilities"
-    # shellcheck disable=SC2086
-    install_utility "$IDENTITY" $SYSTEM_USER $SERVER_INSTANCE_IPV4
-    display_spacer
     display_info "Running User Configuration Script"
     # shellcheck disable=SC2086
     ssh $IDENTITY $SYSTEM_USER@$SERVER_INSTANCE_IPV4 "sh config-server-user.sh"
@@ -354,16 +350,9 @@ function run_script {
     ;;
   INSTALL)
     display_spacer
-    display_info "ACTION: -i Installing tools such as docker"
-    validate_tool_list
-    if [ "$validate_tool_list_result" == "failed" ]; then
-      exit 99
-    fi
-    IFS=','
-    for tool in "${TOOL_LIST[@]}"; do
-      install_tool $tool
-    done
-    IFS=$' \t\n'
+    display_info "ACTION: -i Installing utilities"
+    # shellcheck disable=SC2086
+    echo "Cloning utilities to /tmp"
     display_spacer
     ;;
   KEYS)
