@@ -37,6 +37,7 @@ WAIT="yes"
 DISPLAY_EXPORTS="yes"
 
 function init_script() {
+  echo "===> Starting Init"
   echo "Remove existing core-devops directory, if any."
   rm -rf core-devops
   echo "Cloning Core DevOps scripts"
@@ -45,25 +46,21 @@ function init_script() {
   . core-devops/scripts/0-initialize-core-scripts.sh
   #
   display_spacer
+  display_spacer
   display_info "Script has been initialized."
   #
   # Pulling configuration from Github
   #
+  display_spacer
   display_info "Remove existing configurations directory, if any."
   rm -rf configurations
   display_info "Cloning configurations"
   git clone https://github.com/sty-holdings/configurations
   display_spacer
   display_info "Configuration is available."
-  #
-  # Pulling utilities from Github
-  #
-  display_info "Remove existing utilities directory, if any."
-  rm -rf utilities
-  display_info "Cloning utilities"
-  git clone https://github.com/sty-holdings/utilities
   display_spacer
-  display_info "utilities is available."
+  display_info "===> Finished Init"
+  exit
 }
 
 # shellcheck disable=SC2028
@@ -302,6 +299,7 @@ function run_script {
   case "$ACTION" in
   ALIAS)
     # Add a local Alias for the instance and user
+    display_spacer
     display_info "ACTION: -a Adds an alias for the server for the WORKING_AS."
     # shellcheck disable=SC2086
     install_local_instance_alias $WORKING_AS-$SERVER_ENVIRONMENT-$INSTANCE_NUMBER $LOCAL_ALIAS_FQN $WORKING_AS
@@ -310,6 +308,7 @@ function run_script {
     ;;
   CONFIG)
     # Configure the non-root user
+    display_spacer
     display_info "ACTION: -c Configure SYSTEM_USER on the server."
     # shellcheck disable=SC2086
     build_ssh_identity_filename $SYSTEM_USER $LOCAL_USER_HOME_DIRECTORY $SERVER_ENVIRONMENT $INSTANCE_NUMBER
@@ -326,6 +325,7 @@ function run_script {
     # shellcheck disable=SC2086
     scp $IDENTITY configurations/scripts/config-server-user.sh $SYSTEM_USER@$SERVER_INSTANCE_IPV4:.
     #
+    display_spacer
     display_info "Installing STY Holdings Utilities"
     # shellcheck disable=SC2086
     isntall_utilities $IDENTITY $SYSTEM_USER $SERVER_INSTANCE_IPV4
@@ -335,6 +335,7 @@ function run_script {
     ;;
   HOSTNAME)
     #    Change the hostname
+    display_spacer
     display_info "ACTION: -n Change the hostname "
     if [ "$WORKING_AS" == "root" ]; then
       hostname=$(echo "$SERVER_INSTANCE_IPV4" | cut -d '.' -f1)
@@ -351,6 +352,7 @@ function run_script {
     display_spacer
     ;;
   INSTALL)
+    display_spacer
     display_info "ACTION: -i Installing tools such as docker"
     validate_tool_list
     if [ "$validate_tool_list_result" == "failed" ]; then
@@ -365,6 +367,7 @@ function run_script {
     ;;
   KEYS)
     # Generate and install ssh identity key
+    display_spacer
     display_info "ACTION: -k Set up ssh private/public keys on the server for WORKING_AS. (Operator is prompted)"
     display_info "The script is going to install the new ssh key. You will be prompted for the users password on the command line."
     # shellcheck disable=SC2086
@@ -383,6 +386,7 @@ function run_script {
     ;;
   SUDO)
     #  Grant user sudo powers
+    display_spacer
     display_info "ACTION: -s Adding SYSTEM_USER to sudo group and include file"
     if [ "$WORKING_AS" == "root" ]; then
       # shellcheck disable=SC2029
@@ -395,6 +399,7 @@ function run_script {
     ;;
   SUDO-NOPASSWD)
     #  Grant user sudo powers without password
+    display_spacer
     display_info "ACTION: -S Adding SYSTEM_USER to sudo group and include file with NOPASSWD"
     if [ "$WORKING_AS" == "root" ]; then
       # shellcheck disable=SC2029
@@ -410,6 +415,7 @@ function run_script {
     ;;
   USER)
     #  Create user on server
+    display_spacer
     display_info "ACTION: -u Create a SYSTEM_USER. (Operator is prompted)"
     # shellcheck disable=SC2086
     build_ssh_identity_filename $WORKING_AS $LOCAL_USER_HOME_DIRECTORY $SERVER_ENVIRONMENT $INSTANCE_NUMBER
