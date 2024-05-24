@@ -326,8 +326,9 @@ function run_script {
     # shellcheck disable=SC2086
     scp $IDENTITY configurations/scripts/config-server-user.sh $SYSTEM_USER@$SERVER_INSTANCE_IPV4:.
     #
-    # Install utilities
-#    ???????????
+    display_info "Installing STY Holdings Utilities"
+    # shellcheck disable=SC2086
+    isntall_utilities $IDENTITY $SYSTEM_USER $SERVER_INSTANCE_IPV4
     # shellcheck disable=SC2086
     ssh $IDENTITY $SYSTEM_USER@$SERVER_INSTANCE_IPV4 "sh config-server-user.sh"
     display_spacer
