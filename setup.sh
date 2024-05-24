@@ -60,7 +60,6 @@ function init_script() {
   display_info "Configuration is available."
   display_spacer
   display_info "===> Finished Init"
-  exit
 }
 
 # shellcheck disable=SC2028
@@ -328,7 +327,9 @@ function run_script {
     display_spacer
     display_info "Installing STY Holdings Utilities"
     # shellcheck disable=SC2086
-    isntall_utilities $IDENTITY $SYSTEM_USER $SERVER_INSTANCE_IPV4
+    install_utility "$IDENTITY" $SYSTEM_USER $SERVER_INSTANCE_IPV4
+    display_spacer
+    display_info "Running User Configuration Script"
     # shellcheck disable=SC2086
     ssh $IDENTITY $SYSTEM_USER@$SERVER_INSTANCE_IPV4 "sh config-server-user.sh"
     display_spacer
