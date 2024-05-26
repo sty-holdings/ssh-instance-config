@@ -352,7 +352,7 @@ function run_script {
     display_spacer
     display_info "ACTION: -i Installing utilities"
     # shellcheck disable=SC2086
-    echo "Cloning utilities to /tmp"
+    install_utility "$IDENTITY" $WORKING_AS $SERVER_INSTANCE_IPV4
     display_spacer
     ;;
   KEYS)
